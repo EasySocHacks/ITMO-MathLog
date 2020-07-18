@@ -1,8 +1,5 @@
 all: Main.class
 
-clean:
-	del *.class
-
 run:
 	java Main
 	

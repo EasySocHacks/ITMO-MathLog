@@ -6,7 +6,7 @@ public class ExpressionParser {
     private final List<ExpressionPart> expressionPartList;
 
     public ExpressionParser(String expression) {
-        this.expression = expression + " ";
+        this.expression = expression.replaceAll(System.lineSeparator() + "|\\n|\\r|\n|\r", "") + " ";
         expressionPartList = new ArrayList<>();
 
         parse();
@@ -18,7 +18,7 @@ public class ExpressionParser {
         for (int i = 0; i < expression.length(); i++) {
             char parsingChar = expression.charAt(i);
 
-            if (parsingChar == ' ' || parsingChar == '\n' || parsingChar == '\r') {
+            if (parsingChar == ' ') {
                 continue;
             } else if (parsingChar >= 'A' && parsingChar <= 'Z') {
                 StringBuilder parsingString = new StringBuilder();
@@ -33,13 +33,10 @@ public class ExpressionParser {
                 i--;
 
 
-                parsingExpressionPart = Variable.getInstance(parsingString.toString());
-            } else if (parsingChar == '-' && i != expression.length() - 1 && expression.charAt(i + 1) == '>') {
+                parsingExpressionPart = new Variable(parsingString.toString());
+            } else if (parsingChar == '-') {
                 i++;
                 parsingExpressionPart = Operand.IMPLICATION;
-            } else if (parsingChar == '|' && i != expression.length() - 1 && expression.charAt(i + 1) == '-') {
-                i++;
-                parsingExpressionPart = Operand.TURNSTILE;
             } else {
                 switch (parsingChar) {
                     case '&' : parsingExpressionPart = Operand.AND; break;
@@ -47,7 +44,6 @@ public class ExpressionParser {
                     case '!' : parsingExpressionPart = Operand.NOT; break;
                     case '(' : parsingExpressionPart = Operand.OPEN_BRACKET; break;
                     case ')' : parsingExpressionPart = Operand.CLOSE_BRACKET; break;
-                    case ',' : parsingExpressionPart = Operand.COMMA; break;
                 }
             }
 

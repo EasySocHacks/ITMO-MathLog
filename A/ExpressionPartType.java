@@ -5,7 +5,5 @@ public enum ExpressionPartType {
     IMPLICATION,
     NOT,
     OPEN_BRACKET,
-    CLOSE_BRACKET,
-    TURNSTILE,
-    COMMA;
+    CLOSE_BRACKET;
 }

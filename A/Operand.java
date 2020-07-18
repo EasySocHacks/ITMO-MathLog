@@ -4,9 +4,7 @@ public enum Operand implements ExpressionPart {
     IMPLICATION("->"),
     NOT("!"),
     OPEN_BRACKET("("),
-    CLOSE_BRACKET(")"),
-    TURNSTILE("|-"),
-    COMMA(",");
+    CLOSE_BRACKET(")");
 
     private String stringValue;
 
